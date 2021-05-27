@@ -1,0 +1,78 @@
+<% include ../partials/head.ejs %>
+<% include ../partials/navbar.ejs %>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script>$(document).ready(function () {
+        $('.mdb-select').materialSelect();
+    });</script>
+<div style="position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background-image: url('../img/contactoBG.png');
+    width: 100vw;
+    height: 110vh;
+    background-size: 100% 100%;"></div>
+<div style="margin-top: 5pc;"></div>
+<p style="font-size: 5vw; text-align: center;">Comunicate con nosotros</p>
+
+<div class="container card"
+     style="margin-top: 2pc; margin-bottom: 2pc; border-radius: 2pc; background-color: rgba(255,255,255,0.8)">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="form-group">
+                <select class="mdb-select md-form" id="departamento">
+                    <option disabled selected>Con que departamento quieres hablar?</option>
+                    <option>Ventas</option>
+                    <option>Servicio al cliente</option>
+                    <option>Soporte tecnico</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nombre" id="nombre">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" id="email">
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" placeholder="Telefono" id="telefono"
+                       onKeyPress="if(this.value.length==12) return false;">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="5" placeholder="Escribenos" id="mensaje"></textarea>
+            </div>
+            <button onclick="enviarCorreo()" class="btn btn-outline-primary">Enviar</button>
+        </div>
+        <div class="col-lg-5" style="margin-left: 0pc;">
+            <p style="margin-left: 5pc; font-size: 2pc; margin-top: 1pc;">Canales de comunicacion</p>
+            <div style="margin-left: 5pc;">
+                <p style="margin-bottom: 0;">Atencion al cliente</p>
+                <a href="mailto:servicioalcliente@mascotasegura.co" style="color: black;">servicioalcliente@mascotasegura.co</a>
+                <br><a href="tel:+573057519835" style="color: black;">3057519835</a><br><br>
+                <p style="margin-bottom: 0;">Ventas</p>
+                <a href="mailto:ventas@mascotasegura.co" style="color: black;">ventas@mascotasegura.co</a><br>
+                <a href="tel:+573154062298" style="color: black;">3154062298</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bien" style="position: fixed;bottom: 5px;left:2%;width: 96%; display: none;">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Correo enviado excitosamente, te contactaremos lo más pronto posible</strong>
+    </div>
+</div>
+<div id="mal" style="position: fixed;bottom: 5px;left:2%;width: 96%; display: none;">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Tuvimos un error enviando tu correo, llamanos para comunicarnos contigo de inmediato</strong>
+    </div>
+</div>
+
+<script src="/js/mascotas/socket.io.js"></script>
+<script src="/js/contactanos.js"></script>
+<% include ../partials/footer.ejs %>

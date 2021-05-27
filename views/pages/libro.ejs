@@ -1,0 +1,250 @@
+<% include ../partials/head.ejs %>
+<% include ../partials/navbar.ejs %>
+
+<div class="navbar"></div>
+<div style="margin-top: 7vw;"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-7" id="col">
+            <h1 style="text-align: center">Como funciona</h1>
+            <div class="row">
+                <div class="col">
+                    <a data-toggle="modal" data-target="#english">
+                        <h3 style="text-align: center">English</h3>
+                        <img src="img/instrucciones/Eng/1.jpg"
+                             style="width: 80%; display: block;margin-left: auto;margin-right: auto;">
+                    </a>
+                </div>
+                <div class="col">
+                    <a data-toggle="modal" data-target="#spanish">
+                        <h3 style="text-align: center">Español</h3>
+                        <img src="img/instrucciones/Spa/1.jpg"
+                             style="width: 80%; display: block;margin-left: auto;margin-right: auto;">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="english" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Instructions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="margin-left: 2pc; margin-right: 2pc;">
+                <div class="row">
+                    <div class="col">
+                        <img src="img/instrucciones/Eng/1.jpg" id="img1Eng" style="width: 100%;">
+                    </div>
+                    <div class="col">
+                        <img src="img/instrucciones/Eng/2.jpg" id="img2Eng" style="width: 100%;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <nav aria-label="Page navigation example" style="margin:0 auto;">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" onclick="changeEnglish('prev')" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeEnglish('1')">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeEnglish('2')">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeEnglish('3')">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeEnglish('4')">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeEnglish('5')">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeEnglish('6')">6</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" onclick="changeEnglish('next')" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="spanish" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Instrucciones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="margin-left: 2pc; margin-right: 2pc;">
+                <div class="row">
+                    <div class="col">
+                        <img src="img/instrucciones/Spa/1.jpg" id="img1Spa" style="width: 100%;">
+                    </div>
+                    <div class="col">
+                        <img src="img/instrucciones/Spa/2.jpg" id="img2Spa" style="width: 100%;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <nav aria-label="Page navigation example" style="margin:0 auto;">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" onclick="changeSpanish('prev')" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeSpanish('1')">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeSpanish('2')">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeSpanish('3')">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeSpanish('4')">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeSpanish('5')">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#" onclick="changeSpanish('6')">6</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" onclick="changeSpanish('next')" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let pagination = 1;
+    let paginacion = 1;
+    let unoEnglish = 0;
+    let dosEnglish = 0;
+    let unoSpanish = 0;
+    let dosSpanish = 0;
+
+    function changeEnglish(pag) {
+        if (pag === '1') {
+            unoEnglish = 1;
+            dosEnglish = 2;
+            pagination = pag;
+        } else if (pag === '2') {
+            unoEnglish = 3;
+            dosEnglish = 4;
+            pagination = pag;
+        } else if (pag === '3') {
+            unoEnglish = 5;
+            dosEnglish = 6;
+            pagination = pag;
+        } else if (pag === '4') {
+            unoEnglish = 7;
+            dosEnglish = 8;
+            pagination = pag;
+        } else if (pag === '5') {
+            unoEnglish = 9;
+            dosEnglish = 10;
+            pagination = pag;
+        } else if (pag === '6') {
+            unoEnglish = 11;
+            dosEnglish = 12;
+            pagination = pag;
+        } else if (pag === 'next') {
+            let num = Number(pagination);
+            num++;
+            changeEnglish(num.toString());
+        } else if (pag === 'prev') {
+            let num = Number(pagination);
+            num--;
+            changeEnglish(num.toString());
+        }
+        $('#img1Eng').attr('src', 'img/instrucciones/Eng/' + unoEnglish + '.jpg');
+        $('#img2Eng').attr('src', 'img/instrucciones/Eng/' + dosEnglish + '.jpg');
+    }
+    function changeSpanish(pag) {
+        if (pag === '1') {
+            unoSpanish = 1;
+            dosSpanish = 2;
+            paginacion = pag;
+        } else if (pag === '2') {
+            unoSpanish = 3;
+            dosSpanish = 4;
+            paginacion = pag;
+        } else if (pag === '3') {
+            unoSpanish = 5;
+            dosSpanish = 6;
+            paginacion = pag;
+        } else if (pag === '4') {
+            unoSpanish = 7;
+            dosSpanish = 8;
+            paginacion = pag;
+        } else if (pag === '5') {
+            unoSpanish = 9;
+            dosSpanish = 10;
+            paginacion = pag;
+        } else if (pag === '6') {
+            unoSpanish = 11;
+            dosSpanish = 12;
+            paginacion = pag;
+        } else if (pag === 'next') {
+            let num = Number(paginacion);
+            num++;
+            changeSpanish(num.toString());
+        } else if (pag === 'prev') {
+            let num = Number(paginacion);
+            num--;
+            changeSpanish(num.toString());
+        }
+        $('#img1Spa').attr('src', 'img/instrucciones/Spa/' + unoSpanish + '.jpg');
+        $('#img2Spa').attr('src', 'img/instrucciones/Spa/' + dosSpanish + '.jpg');
+    }
+</script>
+
+<div style="display: none">
+    <img src="img/instrucciones/Eng/2.jpg">
+    <img src="img/instrucciones/Eng/3.jpg">
+    <img src="img/instrucciones/Eng/4.jpg">
+    <img src="img/instrucciones/Eng/5.jpg">
+    <img src="img/instrucciones/Eng/6.jpg">
+    <img src="img/instrucciones/Eng/7.jpg">
+    <img src="img/instrucciones/Eng/8.jpg">
+    <img src="img/instrucciones/Eng/9.jpg">
+    <img src="img/instrucciones/Eng/10.jpg">
+    <img src="img/instrucciones/Eng/11.jpg">
+    <img src="img/instrucciones/Eng/12.jpg">
+    <img src="img/instrucciones/Spa/2.jpg">
+    <img src="img/instrucciones/Spa/3.jpg">
+    <img src="img/instrucciones/Spa/4.jpg">
+    <img src="img/instrucciones/Spa/5.jpg">
+    <img src="img/instrucciones/Spa/6.jpg">
+    <img src="img/instrucciones/Spa/7.jpg">
+    <img src="img/instrucciones/Spa/8.jpg">
+    <img src="img/instrucciones/Spa/9.jpg">
+    <img src="img/instrucciones/Spa/10.jpg">
+    <img src="img/instrucciones/Spa/11.jpg">
+    <img src="img/instrucciones/Spa/12.jpg">
+</div>
+
+<style>
+    .pagination a {
+        color: #4d9900;
+    }
+
+    .pagination a:hover {
+        color: #2d6100;
+    }
+</style>
+
+<% include ../partials/footer.ejs %>

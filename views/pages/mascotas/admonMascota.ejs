@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Mi Mascota | Mascota Segura</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        @font-face {
+            font-family: 'the_salvador_condensedregular';
+            /*src: url('../css/the_salvador_condensed-webfont.woff2') format('woff2'),*/
+            /*url('../css/the_salvador_condensed-webfont.woff') format('woff');*/
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Product Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+        }
+
+        body {
+            font-family: Product Sans;
+        }
+
+        th {
+            padding: 0 !important;
+        }
+
+        .nav-fill .nav-link:hover {
+            font-size: 2rem !important;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+        .card-link {
+            font-size: 1.7pc;
+        }
+
+        .nav-tabs .nav-link {
+            border: 0;
+            color: #4d9900;
+            background-color: white;
+            border-top-left-radius: 0;
+            font-size: 2vw;
+            border-top-right-radius: 0;
+            height: 5vw;
+            transition: font-size 0.3s;
+            font-weight: bolder;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+    <style>
+        #datosPrincipales.active {
+            /*border: 1px solid #4285F4;*/
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4285F4;
+            border-radius: .25rem;
+            color: white;
+        }
+
+        #datosPrincipales:not(.active) {
+            border: 1px solid #4285F4;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: .25rem;
+            color: #4285F4;
+        }
+
+        #datosMedicos:not(.active) {
+            border: 1px solid #ff4444;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: .25rem;
+            color: #ff4444;
+        }
+
+        #datosMedicos.active {
+            /*border: 1px solid #ff4444;*/
+            background-color: #ff4444;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: .25rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar"></div>
+<div style="display: none;">
+    <p id="idMascota"><%- id %></p>
+    <p id="passMascota"><%- pass %></p>
+</div>
+<div style="margin-top: 4vw;">
+</div>
+<div class="card text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card" style="margin-top:3pc;">
+                    <% if (typeof foto != 'undefined') { %>
+                    <img src="/mascotas/fotos/<%- foto %>" style="width: 100%;">
+                    <% } %>
+                </div>
+                <div class="card" style="margin-top: 2pc;">
+                    <div class="card-body" align="center">
+                        <button type="button" class="btn btn-danger perdido btn-lg btn-blok" style="width: 100%;
+                        <% if(perdida === true){ %>display: none;<% } %>" data-toggle="modal" data-target="#perdida"
+                        >Me perdi :(
+                        </button>
+                        <div class="modal fade" id="perdida" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Proporciona informacion a cerca del evento</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Proporciona informacion a cerca de la perdida de tu mascota; Fecha, hora,
+                                        lugar
+                                        y cualquier dato de utilidad<br><br><br>
+                                        <textarea class="form-control" rows="4" id="datosPerdida"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" id="cerrarDiv"
+                                                data-dismiss="modal">Cerrar
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                onclick="perdidaMascota('<%- id %>', '<%- pass %>')" ;>Enviar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success aparecido btn-lg btn-blok" style="width: 100%;
+                        <% if(perdida === false){ %>display: none;<% } %>" data-toggle="modal" data-target="#aparece"
+                        >Apareci :)
+                        </button>
+                        <div class="modal fade" id="aparece" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Realmente encontraste a tu mascota?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" id="cerrarDiv2"
+                                                data-dismiss="modal">Aun no :(
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                onclick="apareceMascota('<%- id %>', '<%- pass %>')"
+                                                data-dismiss="modal">Si!
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="ComentariosButton"
+                                class="btn btn-success aparecido btn-lg btn-blok"
+                                style="width: 100%;display: none !important;" data-toggle="modal"
+                                data-target="#comentarios">s
+                        </button>
+                        <div class="modal fade" id="comentarios" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Que bien!</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Nos alegra que te hayas podido reencontrar con tu mascota, si gustas puedes
+                                        dejar un comentario a cerca de tu experiencia con Mascota Segura
+                                        <textarea class="form-control" rows="4" id="Resena"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" id="cerrarDiv3"
+                                                data-dismiss="modal">Cerrar
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                onclick="enviarResena('<%- id %>', '<%- pass %>')">Enviar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% if (position !='') { %>
+                        <button type="button" class="btn btn-warning btn-lg aparecido btn-blok" style="width: 100%;
+                            margin-top: 1pc;"
+                                onclick="location.href='/mascotas/lugares-visto?id=<%- id %>';">
+                            Abrir mapas con lugares donde
+                            lo hemos visto
+                        </button>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <ul class="nav md-tabs nav-justified" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="datosPrincipales" data-toggle="pill" href="#pills-home"
+                           role="tab"
+                           aria-controls="pills-home" aria-selected="true">Datos generales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="datosMedicos" data-toggle="pill" href="#pills-profile" role="tab"
+                           aria-controls="pills-profile" aria-selected="false">Datos medicos</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                         aria-labelledby="pills-home-tab">
+
+                        <% if (typeof name != undefined) { %>
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <label style="margin-bottom: -2pc;">Nombre</label>
+                            <input type="text" class="form-control" value="<%- name %>" disabled>
+                        </div>
+                        <% } %>
+                        <% if (typeof direccion != 'undefined') { %>
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <label style="margin-bottom: -2pc;">Direccion</label>
+                            <input type="text" class="form-control" value="<%- direccion %>" disabled>
+                        </div>
+                        <% } %>
+                        <% if (typeof raza === 'string') { %>
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <label style="margin-bottom: -2pc;">Raza</label>
+                            <input type="text" class="form-control" value="<%- raza %>" disabled>
+                        </div>
+                        <% } %>
+                        <% if (typeof ciudad != 'undefined') { %>
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <label style="margin-bottom: -2pc;">Ciudad</label>
+                            <input type="text" class="form-control" value="<%- ciudad %>" disabled>
+                        </div>
+                        <% } %>
+                        <% if (typeof fechaNacimiento != 'undefined') { %>
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <label style="margin-bottom: -2pc;">Fecha de nacimiento</label>
+                            <input type="text" class="form-control" value="<%- fechaNacimiento %>" disabled>
+                        </div>
+                        <% } %>
+                        <% if (typeof color != 'undefined') { %>
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <label style="margin-bottom: -2pc;">Color</label>
+                            <input type="text" class="form-control" value="<%- color %>" disabled>
+                        </div>
+                        <% } %>
+                        <% if (typeof descripcion != 'undefined') { %>
+                        <div class="form-group">
+                            <label style="margin-top: 1pc; margin-bottom: -1pc;">Descripcion</label>
+                            <textarea class="form-control" rows="3" disabled><%- descripcion %></textarea>
+                        </div>
+                        <% } %>
+                        <% if (typeof recomendaciones != 'undefined') { %>
+                        <div class="form-group">
+                            <label style="margin-top: 1pc; margin-bottom: -1pc;">Datos medicos</label>
+                            <textarea class="form-control" rows="3" disabled><%- recomendaciones %></textarea>
+                        </div>
+                        <% } %>
+                        <p style="text-align: center;">
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <% if (typeof telefono != 'undefined') { %>
+                            <label style="margin-bottom: -2pc;">Telefono</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <a href="tel:<%- telefono %>">
+                                        <button class="btn btn-outline-success" type="button">Llamar</button>
+                                    </a>
+                                </div>
+                                <input type="text" class="form-control" value="<%- telefono %>" disabled>
+                            </div>
+                            <% } %>
+                            <div class="form-group" style="margin-top: 1pc;">
+                                <% if (typeof celular1 != 'undefined') { %>
+                                <label style="margin-bottom: -2pc;">Celular 1</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <a href="tel:<%- celular1 %>">
+                                            <button class="btn btn-outline-success" type="button">Llamar</button>
+                                        </a>
+                                    </div>
+                                    <input type="text" class="form-control" value="<%- celular1 %>" disabled>
+                                </div>
+                                <% } %>
+                                <div class="form-group" style="margin-top: 1pc;">
+                                    <% if (typeof celular2 != 'undefined') { %>
+                                    <label style="margin-bottom: -2pc;">Celular 2</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <a href="tel:<%- celular1 %>">
+                                                <button class="btn btn-outline-success" type="button">Llamar
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <input type="text" class="form-control" value="<%- celular1 %>" disabled>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                <div class="form-group" style="margin-top: 1pc;">
+                                    <% if (typeof whatsapp != 'undefined') { %>
+                                    <label style="margin-bottom: -2pc;">Whatsapp</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <a href="https://wa.me/+<%- whatsapp %>?text=He%20encontrado%20a%20tu%20mascota!">
+                                                <button class="btn btn-outline-success" type="button">Enviar mensaje
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <input type="text" class="form-control" value="<%- whatsapp %>" disabled>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                         aria-labelledby="pills-profile-tab">
+
+                        <ul class="nav md-tabs nav-justified mt-4">
+                            <li class="nav-item">
+                                <a href="#veterinarioTab">
+                                    <img src="../img/mascotas/veterinario.png" style="width: 100%;">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#cirugiasTab">
+                                    <img src="../img/mascotas/cirugias.png" style="width: 100%;">
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav md-tabs nav-justified">
+                            <li class="nav-item">
+                                <a href="#vacunasTab">
+                                    <img src="../img/mascotas/vacunas.png" style="width: 100%;">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#medicamentosTab1">
+                                    <img src="../img/mascotas/medicamento.png" style="width: 100%;">
+                                </a>
+                            </li>
+                        </ul>
+                        <div id="veterinarioTab">
+                            <% if (typeof veterinarioCel != 'undefined' && typeof veterinarioNombre != 'undefined') { %>
+                            <h3>Veterinario a cargo</h3>
+                            <% } %>
+
+                            <% if (typeof veterinarioNombre != 'undefined') { %>
+                            <div class="form-group" style="margin-top: 1pc;">
+                                <label style="margin-bottom: -2pc;">Nombre</label>
+                                <input type="text" class="form-control" value="<%- veterinarioNombre %>" disabled>
+                            </div>
+                            <% } %>
+                            <% if (typeof veterinarioCel != 'undefined') { %>
+                            <div class="form-group" style="margin-top: 1pc;">
+                                <label style="margin-bottom: -2pc;">Celular</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <a href="tel:+<%- veterinarioCel %>">
+                                            <button class="btn btn-outline-success" type="button">Llamar</button>
+                                        </a>
+                                    </div>
+                                    <input type="text" class="form-control" value="+<%- veterinarioCel %>" disabled>
+                                </div>
+                            </div>
+                            <% } %>
+                            <% if (typeof direccionVeterinaria != 'undefined') { %>
+                            <div class="form-group" style="margin-top: 1pc;">
+                                <label style="margin-bottom: -2pc;">Direccion</label>
+                                <input type="text" class="form-control" value="<%- direccionVeterinaria %>" disabled>
+                            </div>
+                            <% } %>
+                            <% if (typeof nombreVeterinaria != 'undefined') { %>
+                            <div class="form-group" style="margin-top: 1pc;">
+                                <label style="margin-bottom: -2pc;">Nombre veterinaria</label>
+                                <input type="text" class="form-control" value="<%- nombreVeterinaria %>" disabled>
+                            </div>
+                            <% } %>
+                            <% if (typeof veterinariaTel != 'undefined') { %>
+                            <div class="form-group" style="margin-top: 1pc;">
+                                <label style="margin-bottom: -2pc;">Telefono</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <a href="tel:+<%- veterinariaTel %>">
+                                            <button class="btn btn-outline-success" type="button">Llamar</button>
+                                        </a>
+                                    </div>
+                                    <input type="text" class="form-control" value="+<%- veterinariaTel %>" disabled>
+                                </div>
+                            </div>
+                            <% } %>
+                            <% if (typeof observacionesVeterinaria != 'undefined') { %>
+                            <div class="form-group">
+                                <label style="margin-top: 1pc; margin-bottom: -1pc;">Observaciones</label>
+                                <textarea class="form-control" rows="3"
+                                          disabled><%- observacionesVeterinaria %></textarea>
+                            </div>
+                            <% } %>
+                        </div>
+                        <div id="cirugiasTab">
+
+                            <h3>Procedimiento m&eacutedico</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Tipo de procedimiento</th>
+                                    <th scope="col">Veterinario</th>
+                                </tr>
+                                </thead>
+                                <tbody class="cirugiasTable">
+                                </tbody>
+                            </table>
+                            <% if (typeof recomendaciones !== 'undefined') { %>
+                            <div class="form-group">
+                                <label style="margin-top: 1pc; margin-bottom: -1pc;">Datos medicos</label>
+                                <textarea class="form-control" rows="3" disabled><%- recomendaciones %></textarea>
+                            </div>
+                            <% } %>
+                        </div>
+                        <div id="vacunasTab">
+                            <h3>Vacunas</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Vacuna utilizada</th>
+                                </tr>
+                                </thead>
+                                <tbody class="vacunasTable">
+                                </tbody>
+                            </table>
+                            <h3>Desparasitaci&oacuten</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Desparasitaci&oacuten</th>
+                                    <th scope="col">Biologicos</th>
+                                </tr>
+                                </thead>
+                                <tbody class="parasitosTable">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="medicamentosTab1">
+                            <h3>Medicinas</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Dosis</th>
+                                </tr>
+                                </thead>
+                                <tbody class="medicinaTable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" role="button" href="../mascota/admin?id=<%- id %>&pass=<%- pass %>&edit=edit"
+               class="card-link">Editar datos de mascota</a>
+        </div>
+        </ul>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    var vacunas = [];
+    var vacunas2 = [];
+    var cirugias = [];
+    var medicamentos = [];
+</script>
+
+
+<% if (typeof vacunas != 'undefined') {
+if (typeof vacunas === 'object') {
+for(var i=0; i< vacunas.length; i++) {%>
+<script type="text/javascript">
+    try {
+        vacunas.push(JSON.parse('<%- vacunas[i] %>'));
+    } catch (e) {
+        vacunas.push(JSON.parse('<%- vacunas[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% } %>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        vacunas.push(JSON.parse('<%- vacunas %>'));
+    } catch (e) {
+        console.log(e);
+        vacunas.push(JSON.parse('<%- vacunas %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+<% if (typeof cirugias != 'undefined') {
+if (typeof cirugias === 'object') {
+for(var i=0; i< cirugias.length; i++) {%>
+<script type="text/javascript">
+    try {
+        cirugias.push(JSON.parse('<%- cirugias[i] %>'));
+    } catch (e) {
+        cirugias.push(JSON.parse('<%- cirugias[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% } %>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        cirugias.push(JSON.parse('<%- cirugias %>'));
+    } catch (e) {
+        console.log(e);
+        cirugias.push(JSON.parse('<%- cirugias %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+<% if (typeof medicamentos != 'undefined') {
+if (typeof medicamentos === 'object') {
+for(var i=0; i< medicamentos.length; i++) {%>
+<script type="text/javascript">
+    try {
+        medicamentos.push(JSON.parse('<%- medicamentos[i] %>'));
+    } catch (e) {
+        medicamentos.push(JSON.parse('<%- medicamentos[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% } %>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        medicamentos.push(JSON.parse('<%- medicamentos %>'));
+    } catch (e) {
+        console.log(e);
+        medicamentos.push(JSON.parse('<%- medicamentos %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+
+<% if (typeof parasitos != 'undefined') {
+if (typeof parasitos === 'object') {
+for(var i=0; i< parasitos.length; i++) {%>
+<script type="text/javascript">
+    try {
+        vacunas2.push(JSON.parse('<%- parasitos[i] %>'));
+    } catch (e) {
+        vacunas2.push(JSON.parse('<%- parasitos[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% }%>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        vacunas2.push(JSON.parse('<%- parasitos %>'));
+    } catch (e) {
+        console.log(e);
+        vacunas2.push(JSON.parse('<%- parasitos %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+<script type="text/javascript">
+    var html = '';
+    var html2 = '';
+    var html3 = '';
+    var html4 = '';
+    vacunas.forEach(function (element) {
+        html += '<tr>' +
+            '<td>' + element.fecha + '</td>' +
+            '<td>' + element.vacuna.split('~').join(' ') + '</td></tr>';
+    });
+    vacunas2.forEach(function (element) {
+        html2 += ' <tr>' +
+            ' <td>' + element.fecha + '</td>' +
+            ' <td>' + element.desparacitacion.split('~').join(' ') + '</td>' +
+            '<td>' + element.biologico.split('~').join(' ') + '</td></tr>';
+    });
+    cirugias.forEach(function (element) {
+        html3 += ' <tr>' +
+            ' <td>' + element.fecha + '</td>' +
+            ' <td>' + element.tipo.split('~').join(' ') + '</td>' +
+            '<td>' + element.veterinario.split('~').join(' ') + '</td></tr>';
+    });
+    medicamentos.forEach(function (element) {
+        html4 += ' <tr>' +
+            ' <td>' + element.fecha + '</td>' +
+            ' <td>' + element.nombre.split('~').join(' ') + '</td>' +
+            '<td>' + element.dosis.split('~').join(' ') + '</td></tr>';
+    });
+    console.log(vacunas2);
+    $('.vacunasTable').html(html);
+    console.log(html2);
+    $('.parasitosTable').html(html2);
+    $('.cirugiasTable').html(html3);
+    $('.medicinaTable').html(html4);
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script src="../js/navbar.js"></script>
+<script src="../js/mascotas/socket.io.js"></script>
+<script src="../js/mascotas/adminPet.js"></script>
+</body>
+</html>

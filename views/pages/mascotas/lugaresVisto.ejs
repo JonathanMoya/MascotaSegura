@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Mascota Segura | Lugares donde hemos visto a tu mascota</title>
+    <style>
+        #map {
+            height: 100%;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="../js/mascotas/socket.io.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+<a class="btn btn-info" id="button" style="position:fixed;
+        color:white;
+        bottom:85%;
+        left:1%;
+        z-index:100;">Abrir ultima ubicacion en Google Maps</a>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN-XcXj2hxYMaIq23QLYRpzfUae3xeYWc&callback=initMap">
+</script>
+<div id="map"></div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    var socket = io.connect('/');
+    socket.on('mascotaLaVen', function (data) {
+        if (data.id == '<%- id %>') {
+            location.reload();
+        }
+    });
+
+    var position = '<%- data %>';
+    var array = position.split(",");
+    var everyArray = '';
+    var arrayComplete = [];
+    for (var i = 0; i < array.length; i++) {
+        if (i % 2 === 1) {//par
+            everyArray += "," + array[i];
+            var json = JSON.parse(everyArray);
+            arrayComplete.push(json);
+        } else {
+            everyArray = array[i];
+        }
+    }
+    socket.on('actualizarLugares', function (lugares) {
+        console.log(lugares);
+        console.log(lugares.length);
+        array = lugares;
+        everyArray = '';
+        arrayComplete = [];
+        for (var i = 0; i < array.length; i++) {
+            if (i % 2 === 1) {//par
+                // everyArray += "," + array[i];
+                var json = array[i];
+                arrayComplete.push(json);
+            } else {
+                everyArray = array[i];
+            }
+        }
+        initMap();
+        map = undefined;
+    })
+    var map;
+
+    function initMap() {
+        console.log(arrayComplete);
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 16,
+            center: new google.maps.LatLng(arrayComplete[arrayComplete.length - 1].lat, arrayComplete[arrayComplete.length - 1].lon),
+            mapTypeId: "roadmap"
+        });
+        var iconBase = "https://maps.google.com/mapfiles/kml/shapes/";
+        var icons = {
+            parking: {
+                icon: iconBase + "parking_lot_maps.png"
+            },
+            library: {
+                icon: iconBase + "library_maps.png"
+            },
+            info: {
+                icon: iconBase + "info-i_maps.png"
+            }
+        };
+        var features = [];
+
+        for (let j = 0; j < arrayComplete.length; j++) {
+            var featuresJson = {
+                position: new google.maps.LatLng(arrayComplete[j].lat, arrayComplete[j].lon),
+                type: "info"
+            }
+            features.push(featuresJson)
+        }
+        features.forEach(function (feature) {
+            var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                map: map
+            });
+        });
+    }
+
+    document.getElementById("button").href = "https://maps.google.com/?q=" + arrayComplete[arrayComplete.length - 1].lat + ',' + arrayComplete[arrayComplete.length - 1].lon;
+</script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</body>
+</html>

@@ -1,0 +1,140 @@
+<footer class="page-footer font-small" style="background-color: rgb(155,155,155);">
+    <div class="container text-center text-md-left">
+        <div class="row">
+            <div class="col-md-3 mx-auto mt-4">
+                <h5 class=" font-weight-normal mt-3 mb-4" style='color:#5a5a5a;'>Nuestros productos</h5>
+                <ul class="list-unstyled listFooter">
+                    <li>
+                        <a href="https://www.mascotasegura.co/instrucciones" style='color:#6f6f6f;'>Que es</a><br>
+                    </li>
+                    <li>
+                        <a href="https://www.mascotasegura.co/instrucciones" style='color:#6F6F6F;'>Como
+                            funciona</a><br>
+                    </li>
+                    <li>
+                        <a href="https://www.mascotasegura.co/aliados" style='color:#6F6F6F;'>Donde conseguirlo</a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-3 mx-auto mt-4">
+                <h5 class=" font-weight-normal mt-3 mb-4" style='color:#5a5a5a;'>Asistencia</h5>
+                <ul class="list-unstyled listFooter">
+                    <li>
+                        <a href="https://wa.me/573057519835" style='color:#6F6F6F;'>Whatsapp</a><br>
+                    </li>
+                    <li>
+                        <a href="mailto:soportetecnico@mascotasegura.co" style='color:#6F6F6F;'>Correo</a><br>
+                    </li>
+                    <li>
+                        <a href="tel:0318025366" style='color:#6F6F6F;'>Telefono</a>
+                    </li>
+                </ul>
+
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+            <div class="col-md-3 mx-auto mt-4">
+                <h5 class=" font-weight-normal mt-3 mb-4" style='color:#5a5a5a;'>Sobre nosotros</h5>
+                <ul class="list-unstyled listFooter">
+                    <li>
+                        <a href="https://www.mascotasegura.co/quienes-somos" style='color:#6F6F6F;'>Quienes
+                            somos</a><br>
+                    </li>
+                    <li>
+                        <a href="https://www.mascotasegura.co/contactanos" style='color:#6F6F6F;'>Contactanos</a><br>
+                    </li>
+                    <li>
+                        <a href="https://www.mascotasegura.co/terminos-y-condiciones" style='color:#6F6F6F;'>T&eacuterminos
+                            y condiciones</a><br>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 mx-auto">
+                <div class="row mt-4">
+                    <div class="col">
+                        <img src="img/footer/bancolombia.png" style="width: 100%; margin:auto;">
+                        <img src="img/footer/efecty.png" style="width: 100%;">
+                        <img src="img/footer/pse@2x.png" style="width: 100%;">
+                    </div>
+                    <div class="col">
+                        <img src="img/footer/mastercard.png" style="width: 50%; margin-left:25%;">
+                        <img src="img/footer/nequi.png" style="width: 100%;">
+                        <img src="img/footer/via baloto@2x.png" style="width: 100%;">
+                        <img src="img/footer/visa.png" style="width: 70%; margin-left:15%;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center py-3" style='color:#1a1a1a;'>© 2020 Copyright:
+        <a href="http://www.a1cards.com.co" style='color:black;'>
+            Mascota Segura es una filial de A1 Card's Ltda. Visita www.a1cards.com.co
+        </a>
+    </div>
+
+</footer>
+
+<script type="text/javascript" src="js/mdb/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/mdb/js/popper.min.js"></script>
+<script type="text/javascript" src="js/mdb/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/mdb/js/mdb.min.js"></script>
+<script type="text/javascript" src="js/cookies.js"></script>
+
+
+<script type="text/javascript">
+    new WOW().init();
+</script>
+<script src="js/home.js"></script>
+<script type="text/javascript">
+    var pagina = "<%- nombre %>";
+</script>
+<script src="js/navbar.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        footer();
+    });
+
+    $(window).resize(function () {
+        footer();
+    });
+
+    function footer() {
+        var width = $(window).width();
+        if (width >= 850) {
+            $('.footer').show();
+            $('.footerM').hide();
+        } else {
+            $('.footer').hide();
+            $('.footerM').show();
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        navbar();
+        // $('#navbarMobil').hide();
+
+    });
+
+    $(window).resize(function () {
+        navbar();
+    });
+
+    function navbar() {
+        var width = $(window).width();
+        if (width >= 992) {
+            $('#navbarHeader').show();
+            $('#navbarPrincipal').show();
+            $('#navbarMobil').hide();
+        } else {
+            $('#navbarHeader').hide();
+            $('#navbarPrincipal').hide();
+            $('#navbarMobil').show();
+        }
+    }
+</script>
+</body>
+</html>

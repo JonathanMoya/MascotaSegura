@@ -1,0 +1,179 @@
+<% include ../partials/head.ejs %>
+<div class="navbar"></div>
+<div style="margin-top: 5pc;"></div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="img/producto/1211.jpg" style="width: 100%;">
+                </div>
+                <div class="col-sm-4">
+                    <h3>Placa Mascota Segura</h3>
+                    <ul>
+                        <li>Color: Verde</li>
+                        <li>Tamaño: 35mm x 35mm x 6mm</li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <select class="mdb-select md-form cantidad" id="cantidad">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <span>Para más de 10 unidades comunícate con nosotros <a href="contactanos" style="color: black">aqui</a></span>
+
+                    <div class="md-form">
+                        <input type="text" id="promocion" class="form-control">
+                        <label for="promocion">Codigo promocional</label>
+                        <button type="button" class="btn btn-outline-success waves-effect"
+                                onclick="codigoPromocional()">Validar código
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem;">
+                <div class="cardCompra">
+                    <div class="card-body">
+                        <h5 class="card-title">Resumen del producto</h5>
+                    </div>
+                    <a class="btn btn-primary">Selecciona la cantidad que quieres adquirir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 3pc;"></div>
+
+<% include ../partials/footer.ejs %>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.mdb-select').materialSelect();
+    });
+
+    var promocion = 0;
+    var codPromocional = '';
+
+    $("select.cantidad").ready(function () {
+        let html = '<div class="card-body"><h5 class="card-title">Resumen del producto</h5><div class="cardCompra"></div>';
+        var cantidad = $("select.cantidad").children("option:selected").val();
+        console.log(cantidad);
+        html += '<h6 class="card-subtitle mb-2 text-muted">' + cantidad + ' producto';
+        if (parseInt(cantidad, 10) >= 2) {
+            html += 's';
+        }
+        html += '</h6>';
+        html += '<table class="table table-hover"><tbody><tr><td scope="row">Total del producto</td><td>' + numeral(cantidad * 60000).format('$0,0.00');
+        +'</td>';
+        html += '</tr><tr><td scope="row">Gastos de envio</td><td>Gratis</td></tr>';
+        if (promocion !== 0) {
+            html += '<tr><td scope="row">Descuento</td><td>' + numeral(promocion * cantidad).format('$0,0.00') + '</td></tr>';
+        }
+        html += '<tr><td scope="row"><p class="font-weight-bold">Total</p></td>';
+        html += '<td colspan="2"><p class="font-weight-bold">' + numeral((cantidad * 60000) - (promocion * cantidad)).format('$0,0.00') + '</p></tr></tbody></table>';
+        if (codPromocional !== '') {
+            html += '<a href="pagar?cantidad=' + cantidad + '&codPromocional=' + codPromocional + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+        } else {
+            html += '<a href="pagar?cantidad=' + cantidad + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+        }
+        $('.cardCompra').html(html);
+    });
+
+
+    $("select.cantidad").change(function () {
+        let html = '<div class="card-body"><h5 class="card-title">Resumen del producto</h5><div class="cardCompra"></div>';
+        var cantidad = $("select.cantidad").children("option:selected").val();
+        console.log(cantidad);
+        html += '<h6 class="card-subtitle mb-2 text-muted">' + cantidad + ' producto';
+        if (parseInt(cantidad, 10) >= 2) {
+            html += 's';
+        }
+        html += '</h6>';
+        html += '<table class="table table-hover"><tbody><tr><td scope="row">Total del producto</td><td>' + numeral(cantidad * 60000).format('$0,0.00');
+        +'</td>';
+        html += '</tr><tr><td scope="row">Gastos de envio</td><td>Gratis</td></tr>';
+        if (promocion !== 0) {
+            html += '<tr><td scope="row">Descuento</td><td>' + numeral(promocion * cantidad).format('$0,0.00') + '</td></tr>';
+        }
+        html += '<tr><td scope="row"><p class="font-weight-bold">Total</p></td>';
+        html += '<td colspan="2"><p class="font-weight-bold">' + numeral((cantidad * 60000) - (promocion * cantidad)).format('$0,0.00') + '</p></tr></tbody></table>';
+        if (codPromocional !== '') {
+            html += '<a href="pagar?cantidad=' + cantidad + '&codPromocional=' + codPromocional + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+        } else {
+            html += '<a href="pagar?cantidad=' + cantidad + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+        }
+        $('.cardCompra').html(html);
+    });
+
+    function codigoPromocional() {
+        promocion = 10000;
+        var data = $('#promocion').val();
+        console.log(data);
+        codPromocional = data;
+        if (data === 'INSTA20') {
+            promocion = 10000;
+            let html = '<div class="card-body"><h5 class="card-title">Resumen del producto</h5><div class="cardCompra"></div>';
+            var cantidad = $("select.cantidad").children("option:selected").val();
+            console.log(cantidad);
+            html += '<h6 class="card-subtitle mb-2 text-muted">' + cantidad + ' producto';
+            if (parseInt(cantidad, 10) >= 2) {
+                html += 's';
+            }
+            html += '</h6>';
+            html += '<table class="table table-hover"><tbody><tr><td scope="row">Total del producto</td><td>' + numeral(cantidad * 60000).format('$0,0.00');
+            +'</td>';
+            html += '</tr><tr><td scope="row">Gastos de envio</td><td>Gratis</td></tr>';
+            if (promocion !== 0) {
+                html += '<tr><td scope="row">Descuento</td><td>' + numeral(promocion * cantidad).format('$0,0.00') + '</td></tr>';
+            }
+            html += '<tr><td scope="row"><p class="font-weight-bold">Total</p></td>';
+            html += '<td colspan="2"><p class="font-weight-bold">' + numeral((cantidad * 60000) - (promocion * cantidad)).format('$0,0.00') + '</p></tr></tbody></table>';
+            if (codPromocional !== '') {
+                html += '<a href="pagar?cantidad=' + cantidad + '&codPromocional=' + codPromocional + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+            } else {
+                html += '<a href="pagar?cantidad=' + cantidad + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+            }
+            $('.cardCompra').html(html);
+        } else {
+            promocion = 0;
+            let html = '<div class="card-body"><h5 class="card-title">Resumen del producto</h5><div class="cardCompra"></div>';
+            var cantidad = $("select.cantidad").children("option:selected").val();
+            console.log(cantidad);
+            html += '<h6 class="card-subtitle mb-2 text-muted">' + cantidad + ' producto';
+            if (parseInt(cantidad, 10) >= 2) {
+                html += 's';
+            }
+            html += '</h6>';
+            html += '<table class="table table-hover"><tbody><tr><td scope="row">Total del producto</td><td>' + numeral(cantidad * 60000).format('$0,0.00');
+            +'</td>';
+            html += '</tr><tr><td scope="row">Gastos de envio</td><td>Gratis</td></tr>';
+            if (promocion !== 0) {
+                html += '<tr><td scope="row">Descuento</td><td>' + numeral(promocion * cantidad).format('$0,0.00') + '</td></tr>';
+            }
+            html += '<tr><td scope="row"><p class="font-weight-bold">Total</p></td>';
+            html += '<td colspan="2"><p class="font-weight-bold">' + numeral((cantidad * 60000) - (promocion * cantidad)).format('$0,0.00') + '</p></tr></tbody></table>';
+            if (codPromocional !== '') {
+                html += '<a href="pagar?cantidad=' + cantidad + '&codPromocional=' + codPromocional + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+            } else {
+                html += '<a href="pagar?cantidad=' + cantidad + '" style="width: 100%;" class="btn btn-primary">Continuar compra</a></div>'
+            }
+            $('.cardCompra').html(html);
+        }
+    }
+</script>

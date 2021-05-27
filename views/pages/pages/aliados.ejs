@@ -1,0 +1,80 @@
+<% include ../partials/head.ejs %>
+<% include ../partials/navbar.ejs %>
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+        height: 80%;
+        width: 80%;
+        margin: auto;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<div class="container" style="margin-top: 5pc;">
+    <h1>Nuestros aliados</h1>
+</div>
+
+<div id="map"></div>
+
+<div class="mt-5"></div>
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+
+<script>
+
+    function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: {lat: 4.609720, lng: -74.149550}
+        });
+
+        var markers = locations.map(function (location, i) {
+            return new google.maps.Marker({
+                position: {lat: location.lat, lng: location.lng},
+                tel: location.tel,
+                name: location.name,
+                link: location.lat + ',' + location.lng
+            });
+        });
+
+        markers.forEach(function (marker) {
+            marker.addListener('click', function () {
+                console.log(marker);
+                new google.maps.InfoWindow({
+                    content: '<div class="card" style="width: 100%">' +
+                        '  <div class="card-body">' +
+                        '    <h5 class="card-title">' + marker.name + '</h5>' +
+                        '    <a class="btn btn-block btn-outline-primary waves-effect mt-2 btn-sm" href="tel:' + marker.tel + '">Llamanos</a>' +
+                        '    <a class="btn btn-block btn-outline-primary waves-effect mt-2 btn-sm" target="_blank" href="https://maps.google.com/?q=' + marker.link + '">Ir</a>' +
+                        '  </div>' +
+                        '</div>',
+                    maxWidth: 300
+                }).open(map, marker);
+            })
+        })
+
+        new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    }
+
+    var locations = [
+        {lat: 4.609720, lng: -74.149550, tel: '8025366', name: 'Veterinaria 1'},
+        {lat: 4.613000, lng: -74.146701, tel: '3154062298', name: 'Veterinaria 1'},
+        {lat: 4.618912, lng: -74.140227, tel: '3188374505', name: 'Veterinaria 1'},
+    ]
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN-XcXj2hxYMaIq23QLYRpzfUae3xeYWc&callback=initMap"
+        async defer></script>
+
+<% include ../partials/footer.ejs %>

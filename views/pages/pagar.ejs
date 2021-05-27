@@ -1,0 +1,597 @@
+<% include ../partials/head.ejs %>
+<div class="navbar"></div>
+<div style="margin-top: 3pc;"></div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="accordion md-accordion">
+                    <div class="card">
+                        <div class="card-header" role="tab">
+                            <a data-toggle="collapse" href="#collapseEnvio">
+                                <h5 class="mb-0" style="color: black;">
+                                    Envio <i class="fas fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+                        <div id="collapseEnvio" class="collapse show" role="tabpanel">
+                            <div class="card-body">
+                                <div class="container">
+                                    <h2>Direccion de entrega</h2>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <label for="nombre">Nombre *</label>
+                                            <input type="text" class="form-control"
+                                                   onBlur="cambiosText(this, this.value);" id="nombre" maxlength="50">
+                                            <div class="invalid-feedback">
+                                                Introduce un nombre
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="apellidos">Apellidos *</label>
+                                            <input type="text" class="form-control"
+                                                   onBlur="cambiosText(this, this.value);" id="apellidos"
+                                                   maxlength="50">
+                                            <div class="invalid-feedback">
+                                                Introduce un apellido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <label for="direccion">Direccion *</label>
+                                            <input type="text" class="form-control"
+                                                   onBlur="cambiosText(this, this.value);" id="direccion"
+                                                   maxlength="150">
+                                            <div class="invalid-feedback">
+                                                Introduce una dirección
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="telefono">Telefono *</label>
+                                            <input type="number" class="form-control"
+                                                   onKeyPress="if(this.value.length==12) return false;"
+                                                   onBlur="cambiosText(this, this.value);" id="telefono" maxlength="10">
+                                            <div class="invalid-feedback">
+                                                Introduce un telefono
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <select class="mdb-select md-form colorful-select dropdown-success is-invalid departamento"
+                                                    id="departamento">
+                                            </select>
+                                            <div style="width: 100%;margin-top: 0.25rem;display: block;font-size: 80%;color: #dc3545;"
+                                                 id="departamentoAlert">
+                                                Selecciona un departamento
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <select class="mdb-select md-form colorful-select dropdown-success is-invalid"
+                                                    id="ciudades">
+                                                <option disabled selected>Selecciona tu ciudad</option>
+                                            </select>
+                                            <div style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #dc3545;"
+                                                 id="ciudadAlert">
+                                                Selecciona una ciudad
+                                            </div>
+                                            <select class="mdb-select md-form colorful-select dropdown-primary hide">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="mismosDatos"
+                                                       checked>
+                                                <label class="form-check-label" for="mismosDatos">Utilizar esta
+                                                    dirección para la
+                                                    facturación</label>
+                                                <div class="invalid-feedback">
+                                                    Introduce una direccion
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container fast" id="datosFacturacion">
+                                    <h2>Datos de facturación</h2>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <label for="nombreFacturacion">Nombre *</label>
+                                            <input type="text" class="form-control" id="nombreFacturacion"
+                                                   maxlength="50" onBlur="cambiosText(this, this.value);">
+                                            <div class="invalid-feedback">
+                                                Introduce un nombre
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="apellidoFacturacion">Apellidos *</label>
+                                            <input type="text" class="form-control" id="apellidoFacturacion"
+                                                   maxlength="50" onBlur="cambiosText(this, this.value);">
+                                            <div class="invalid-feedback">
+                                                Introduce un apellido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <label for="direccionFacturacion">Direccion *</label>
+                                            <input type="text" class="form-control" id="direccionFacturacion"
+                                                   maxlength="150" onBlur="cambiosText(this, this.value);">
+                                            <div class="invalid-feedback">
+                                                Introduce una direccion
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="telefonoFacturacion">Telefono *</label>
+                                            <input type="text" class="form-control" id="telefonoFacturacion"
+                                                   maxlength="10" onBlur="cambiosText(this, this.value);">
+                                            <div class="invalid-feedback">
+                                                Introduce un telefono
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <select class="mdb-select md-form colorful-select dropdown-success departamentoFacturacion"
+                                                    id="departamentoFacturacion">
+                                            </select>
+                                            <div style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #dc3545;"
+                                                 id="departamentoFacturacionAlert">
+                                                Selecciona un departamento
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <select class="mdb-select md-form colorful-select dropdown-success"
+                                                    id="ciudadesFacturacion">
+                                                <option disabled selected>Selecciona tu ciudad</option>
+                                            </select>
+                                            <div style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #dc3545;"
+                                                 id="ciudadesFacturacionAlert">
+                                                Selecciona una ciudad
+                                            </div>
+                                            <select class="mdb-select md-form colorful-select dropdown-primary hide">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <h2>Tus datos</h2>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <label for="email">Correo electrónico *</label>
+                                            <input type="email" class="form-control" id="email" maxlength="50"
+                                                   onBlur="cambiosText(this, this.value);">
+                                            <div class="invalid-feedback">
+                                                Introduce un correo electrónico válido
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <select class="mdb-select md-form colorful-select dropdown-success"
+                                                    id="tipoDocumento">
+                                                <option disabled selected>Tipo de documento *</option>
+                                                <option value="CC">CC</option>
+                                                <option value="RC">Registro Civil</option>
+                                                <option value="TI">Tarjeta de Identidad</option>
+                                                <option value="CE">Cedula de Extrangería</option>
+                                                <option value="NIT">NIT</option>
+                                                <option value="PP">Pasaporte</option>
+                                                <option value="DE">Documento de Identificación Extranjero</option>
+                                            </select>
+                                            <div style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #dc3545;"
+                                                 id="tipoDocumentoAlert">
+                                                Selecciona un tipo de documento
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <div class="col-sm">
+                                            <label for="numDocumento">Número de documento *</label>
+                                            <input type="number" class="form-control" id="numDocumento"
+                                                   onKeyPress="if(this.value.length==12) return false;" maxlength="50"
+                                                   onBlur="cambiosText(this, this.value);">
+                                            <div class="invalid-feedback">
+                                                Introduce un numero de documento
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md-form form-row">
+                                        <input type="checkbox" class="form-check-input" id="mayorEdad"
+                                               checked>
+                                        <label class="form-check-label" for="mayorEdad">Si, soy mayor de 18 años
+                                            *</label>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline-success btn-rounded waves-effect"
+                                        id="buttonContinuar" onclick="enviar()">Continuar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="accordion md-accordion">
+                    <div class="card">
+                        <div class="card-header" role="tab">
+                            <a data-toggle="collapse" href="#collapsePago">
+                                <h5 class="mb-0" style="color: black;">
+                                    Pago <i class="fas fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+                        <div id="collapsePago" class="collapse show" role="tabpanel">
+                            <div class="card-body">
+                                <div class="container">
+                                    <h2>Metodo de pago</h2>
+                                    <div class="accordion md-accordion" id="accordionPago" role="tablist"
+                                         aria-multiselectable="true">
+                                        <div class="card">
+                                            <div class="card-header" role="tab" id="headTarjeta">
+                                                <a data-toggle="collapse" data-parent="#accordionPago"
+                                                   href="#collapsePagoTarjeta" aria-expanded="true"
+                                                   aria-controls="headTarjeta">
+                                                    <h5 class="mb-0" style="color: black;">
+                                                        Tarjeta de crédito/débito <i
+                                                            class="fas fa-angle-down rotate-icon"></i>
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                            <div id="collapsePagoTarjeta" class="collapse show" role="tabpanel"
+                                                 aria-labelledby="collapsePagoTarjeta"
+                                                 data-parent="#accordionPago">
+                                                <div class="card-body">
+                                                    <div class="col-sm">
+                                                        <label for="numeroTarjeta">Número: *</label>
+                                                        <input type="number" class="form-control" id="numeroTarjeta"
+                                                               maxlength="50"
+                                                               onBlur="cambiosText(this, this.value);"
+                                                               onKeyPress="if(this.value.length===19) return false;"
+                                                               autocomplete="off">
+                                                        <div class="invalid-feedback">
+                                                            Introduce el número tal y como aparece en la tarjeta
+                                                        </div>
+                                                        <div class="md-form">
+                                                            <label for="nombreTarjeta">Titular de la tarjeta: *</label>
+                                                            <input type="text" class="form-control" id="nombreTarjeta"
+                                                                   maxlength="100"
+                                                                   onBlur="cambiosText(this, this.value);"
+                                                                   autocomplete="off">
+                                                            <div class="invalid-feedback">
+                                                                Introduce el nombre tal y como aparece en la tarjeta
+                                                            </div>
+                                                        </div>
+                                                        <div class="md-form">
+                                                            <input placeholder="Selected date" type="text"
+                                                                   id="fechaCaducidad"
+                                                                   class="form-control datepicker">
+                                                            <label for="fechaCaducidad">Fecha de caducidad</label>
+                                                            <div class="invalid-feedback">
+                                                                Selecciona la fecha
+                                                            </div>
+                                                        </div>
+                                                        <div class="md-form">
+                                                            <label for="seguridadTarjeta">CVV: *</label>
+                                                            <input type="number" class="form-control"
+                                                                   id="seguridadTarjeta" maxlength="50"
+                                                                   onBlur="cambiosText(this, this.value);"
+                                                                   onKeyPress="if(this.value.length===4) return false;"
+                                                                   autocomplete="off">
+                                                            <div class="invalid-feedback">
+                                                                Introduce el código de seguridad de tu tarjeta
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                                class="btn btn-outline-success btn-rounded waves-effect"
+                                                                onclick="enviarTarjeta()">Continuar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header" role="tab" id="headingTarjeta">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionPago"
+                                                   href="#collapsePSE"
+                                                   aria-expanded="false" aria-controls="collapsePSE">
+                                                    <h5 class="mb-0" style="color: black;">
+                                                        Débito Bancario PSE<i
+                                                            class="fas fa-angle-down rotate-icon"></i>
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                            <div id="collapsePSE" class="collapse" role="tabpanel"
+                                                 aria-labelledby="collapsePSE"
+                                                 data-parent="#accordionPago">
+                                                <div class="card-body">
+                                                    Serás redirigido al sitio seguro de PSE para ingresar tus
+                                                    credenciales y realizar tu pago
+
+                                                    <div class="md-form form-row">
+                                                        <div class="col-sm">
+                                                            <select class="mdb-select md-form" id="bancos">
+                                                            </select>
+                                                            <div style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #dc3545;"
+                                                                 id="codebankAlert">
+                                                                Selecciona un banco
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md-form form-row">
+                                                        <div class="col-sm">
+                                                            <label for="nombreTitular">Nombre del titular *</label>
+                                                            <input type="text" class="form-control"
+                                                                   onBlur="cambiosText(this, this.value);"
+                                                                   maxlength="150" id="nombreTitular">
+                                                            <div class="invalid-feedback">
+                                                                Introduce un nombre
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md-form form-row">
+                                                        <div class="col-sm">
+                                                            <select class="mdb-select md-form" id="typeUser">
+                                                                <option disabled selected>Tipo de cliente *</option>
+                                                                <option value="N">Persona natural</option>
+                                                                <option value="J">Persona jurídica</option>
+                                                            </select>
+                                                            <div style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #dc3545;"
+                                                                 id="typeUserAlert">
+                                                                Selecciona un tipo de cliente
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md-form form-row">
+                                                        <div class="col-sm">
+                                                            <select class="mdb-select md-form" id="typeCC">
+                                                                <option disabled selected>Tipo de documento *</option>
+                                                                <option value="CC">Cédula de ciudadania</option>
+                                                                <option value="CE">Cédula de extrangería</option>
+                                                                <option value="CEL">Número movil</option>
+                                                                <option value="DE">Documento de identificación
+                                                                    extrangero
+                                                                </option>
+                                                                <option value="IDC">Identificador único de cliente
+                                                                </option>
+                                                                <option value="NIT">Número de identificación
+                                                                    tributaria
+                                                                </option>
+                                                                <option value="PP">Pasaporte</option>
+                                                                <option value="RC">Registro civil</option>
+                                                                <option value="TI">Tarjeta de identidad</option>
+                                                            </select>
+                                                            <div style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #dc3545;"
+                                                                 id="typeCCAlert">
+                                                                Selecciona un tipo de cliente
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md-form form-row">
+                                                        <div class="col-sm">
+                                                            <label for="documentoTitular">Número de documento *</label>
+                                                            <input type="number" class="form-control"
+                                                                   id="documentoTitular"
+                                                                   onKeyPress="if(this.value.length==12) return false;"
+                                                                   maxlength="50"
+                                                                   onBlur="cambiosText(this, this.value);">
+                                                            <div class="invalid-feedback">
+                                                                Introduce un número de documento
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md-form form-row">
+                                                        <div class="col-sm">
+                                                            <label for="telefonoTitular">Telefono *</label>
+                                                            <input type="number" class="form-control"
+                                                                   onKeyPress="if(this.value.length==12) return false;"
+                                                                   onBlur="cambiosText(this, this.value);"
+                                                                   id="telefonoTitular" maxlength="10">
+                                                            <div class="invalid-feedback">
+                                                                Introduce un telefono
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" onclick="enviarPSE()" class="btn btn-success">
+                                                        Continuar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header" role="tab" id="headingEfectivo">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionPago"
+                                                   href="#collapsePagoEfectivo"
+                                                   aria-expanded="false" aria-controls="collapsePagoEfectivo">
+                                                    <h5 class="mb-0" style="color: black;">
+                                                        Pago en efectivo<i
+                                                            class="fas fa-angle-down rotate-icon"></i>
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                            <div id="collapsePagoEfectivo" class="collapse" role="tabpanel"
+                                                 aria-labelledby="headingEfectivo"
+                                                 data-parent="#accordionPago">
+                                                <div class="card-body">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                                                id="dropdownMenu4" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                            Selecciona el medio de pago
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu4">
+                                                            <button onclick="pagoEfectivo('BALOTO')"
+                                                                    class="dropdown-item">Baloto
+                                                            </button>
+                                                            <div class="dropdown-divider"></div>
+                                                            <button onclick="pagoEfectivo('EFECTY')"
+                                                                    class="dropdown-item">Efecty
+                                                            </button>
+                                                            <div class="dropdown-divider"></div>
+                                                            <button onclick="pagoEfectivo('BANK_REFERENCED')"
+                                                                    class="dropdown-item">Pago en bancos
+                                                            </button>
+                                                            <div class="dropdown-divider"></div>
+                                                            <button onclick="pagoEfectivo('OTHERS_CASH')"
+                                                                    class="dropdown-item">Otro medio de pago
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <button id="modalPagoEfectivo" type="button" class="btn btn-danger"
+                                                            data-toggle="modal" data-target="#PagoEfectivoModal">
+                                                        Obtener recibo para cancelar
+                                                    </button>
+                                                    <div class="modal fade right" id="PagoEfectivoModal" tabindex="-1"
+                                                         role="dialog" aria-labelledby="exampleModalPreviewLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="exampleModalPreviewLabel">Modal title</h5>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Puedes obtener el PDF o abrir una pagina web con tu
+                                                                    información
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div id="PagoEfectivoPDFWEB"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="row">
+                <h2>Otros medios de pago</h2>
+                <div class="col-sm">
+                    <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr"
+                          method="post">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="9U36GMURFMESY">
+                        <button type="submit"
+                                class="btn btn-outline-primary btn-rounded waves-effect">Paypal
+                        </button>
+                    </form>
+                </div>
+                <div class="col-sm">
+                    <a type="button" target="_blank"
+                       class="btn btn-outline-primary btn-rounded"
+                       href="https://articulo.mercadolibre.com.co/MCO-512643439-placa-de-identificacion-para-mascotas-con-qr-gps-y-nfc-_JM?quantity=1">
+                        Mercado Libre
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardCompra">
+                    <div class="card-body">
+                        <h5 class="card-title">Resumen del producto</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-success" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="heading lead">Compra exitosa</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <i class="fas fa-check-circle fa-4x mb-3 green-text animated rotateIn"></i>
+                                <p>Tu compra fue realizada correctamente, pronto recibiras un correo electrónico
+                                    confirmando tu compra, si tienes cualquier duda o reclamo, comunicate con
+                                    nosotros en el <a style="color: #007E33;" href="contactanos">siguiente link</a></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <a type="button" href="/" class="btn btn-outline-success">Continuar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="centralModalDanger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-danger" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="heading lead">Tuvimos un error con tu compra</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="white-text">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <i class="fas fa-times red-text fa-4x mb-3 animated rotateIn"></i>
+                                <p>Te enviaremos un correo indicandote la razón por la que tu compra no fue exitosa.<br>
+                                    Puedes intentar pagar con otro metodo de pago</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Cerrar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none;">
+    <button type="button" id="successCompra" class="btn btn-primary" data-toggle="modal"
+            data-target="#centralModalSuccess">
+        Launch demo modal
+    </button>
+    <button type="button" id="dangerCompra" class="btn btn-primary" data-toggle="modal"
+            data-target="#centralModalDanger">
+        Launch demo modal
+    </button>
+</div>
+
+
+<div style="margin-top: 3vw"></div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script src="/js/mascotas/socket.io.js"></script>
+<script type="text/javascript" src="https://maf.pagosonline.net/ws/fp/tags.js?id=$<%- id %>80200"></script>
+<noscript>
+    <iframe style="width: 100px; height: 100px; border: 0; position: absolute; top: -5000px;"
+            src="https://maf.pagosonline.net/ws/fp/tags.js?id=$<%- id %>80200"></iframe>
+</noscript>
+<% include ../partials/footer.ejs %>
+<script type="text/javascript">
+    var cantidad = '<%- cantidad %>';
+    var sessionId = '<%- id %>';
+    var cookie = '<%- cookie %>'
+    var codPromocional = '<%- codPromocional %>'
+</script>
+<script src="/js/pagar.js"></script>
+

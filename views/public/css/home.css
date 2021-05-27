@@ -1,0 +1,117 @@
+#imageHome {
+    margin-top: 13vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+@media only screen and (max-width: 992px) {
+    #imageHome {
+        margin-top: 5vw;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+}
+
+@media only screen and (max-width: 767.98px) {
+
+    #cardProveedor2 {
+        margin-top: 2pc;
+    }
+}
+
+#imageHome img {
+    width: 100%;
+}
+
+#backgroundImage {
+    /*background: red;*/
+    /*height: 100%;*/
+    /*background-image: url("../img/backgroundHome.png") !important;*/
+    /*filter: blur(8px);*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background-image: url("../img/backgroundHome.png");
+    width: 100vw;
+    height: 130pc;
+    background-size: 100% 100%;
+    -webkit-filter: blur(20px);
+    -ms-filter: blur(20px);
+    filter: blur(20px);
+}
+
+.card-text {
+    margin-bottom: -0.1pc;
+}
+
+.cardImage {
+    /*margin-top: 4pc;*/
+    margin: 4pc 2pc 4pc;
+    /*margin*/
+}
+
+.cardImage img {
+    width: 100%;
+}
+
+#cardProveedor {
+    background-color: rgb(192, 229, 99);
+    color: white;
+}
+
+#cardProveedor2 {
+    background-color: rgb(96, 194, 229);
+    color: white;
+}
+
+#cardVideos {
+    margin-top: 4pc;
+    /*background-color: rgb(192, 229, 99);*/
+    color: white;
+}
+
+#cardProveedor button {
+    border-style: solid;
+    border-width: 3px;
+    border-color: white;
+    background-color: rgba(0, 0, 0, 0);
+    margin-bottom: 3pc;
+    font-size: 1.3pc;
+    margin-top: 3pc;
+}
+
+#cardVideos button {
+    border-style: solid;
+    border-width: 3px;
+    border-color: white;
+    background-color: rgba(0, 0, 0, 0);
+    margin-bottom: 3pc;
+    font-size: 1.3pc;
+    margin-top: 3pc;
+}
+
+#aliados {
+
+}
+
+.buttonsFinal {
+    /*border-color: rgb(143, 171, 48);*/
+    /*border-width: 1px;*/
+    /*border-radius: 50%;*/
+    width: 70%;
+    height: 100%;
+}
+
+.buttonsFinal button {
+    font-size: 2pc;
+    background-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-color: rgb(143, 171, 48);
+    border-width: 5px !important;
+
+}

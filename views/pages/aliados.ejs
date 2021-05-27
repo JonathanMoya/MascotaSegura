@@ -1,0 +1,154 @@
+<% include ../partials/head.ejs %>
+<% include ../partials/navbar.ejs %>
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+        height: 80%;
+        width: 80%;
+        margin: auto;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<div class="container" style="margin-top: 5pc;">
+    <h1>Nuestros aliados</h1>
+</div>
+
+<div id="map"></div>
+
+<div class="mt-5"></div>
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+
+<script>
+
+    function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: {lat: 4.609720, lng: -74.149550}
+        });
+
+        var markers = locations.map(function (location, i) {
+            return new google.maps.Marker({
+                position: {lat: location.lat, lng: location.lng},
+                tel: location.tel,
+                name: location.name,
+                link: location.lat + ',' + location.lng
+            });
+        });
+
+        markers.forEach(function (marker) {
+            marker.addListener('click', function () {
+                console.log(marker);
+                new google.maps.InfoWindow({
+                    content: '<div class="card" style="width: 100%">' +
+                        '  <div class="card-body">' +
+                        '    <h5 class="card-title">' + marker.name + '</h5>' +
+                        '    <a class="btn btn-block btn-outline-primary waves-effect mt-2 btn-sm" href="tel:' + marker.tel + '">Llamanos</a>' +
+                        '    <a class="btn btn-block btn-outline-primary waves-effect mt-2 btn-sm" target="_blank" href="https://maps.google.com/?q=' + marker.link + '">Ir</a>' +
+                        '  </div>' +
+                        '</div>',
+                    maxWidth: 300
+                }).open(map, marker);
+            })
+        })
+
+        new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    }
+
+    var locations = [{
+        lat: 4.678259,
+        lng: -74.092629,
+        tel: '3175495083',
+        name: 'Clinica veterinaria Nativa',
+        dir: 'Carrera 69g # 68-04'
+    }, {
+        lat: 4.627506,
+        lng: -74.134773,
+        tel: '3115418505',
+        name: 'Veterinaria Petland',
+        dir: 'Cl. 5 #71A - 80, Bogotá'
+    }, {
+        lat: 4.637423,
+        lng: -74.138538,
+        tel: '3108013265',
+        name: 'Doc-Tora Pets Veterinaria y Spa',
+        dir: 'Carrera 72C # 8 - 14 Castilla'
+    }, {
+        lat: 4.655895,
+        lng: -74.062967,
+        tel: '3107951462',
+        name: 'CAMPEON CENTRO VETERINARIO',
+        dir: 'Cl. 69 #1414, Bogotá'
+    }, {
+        lat: 4.656331,
+        lng: -74.063396,
+        tel: '3461403',
+        name: 'Concentrados del Norte - Veterinaria',
+        dir: 'Cra. 14a # 69-23, Bogotá'
+    }, {
+        lat: 4.614407,
+        lng: -74.150974,
+        tel: '3214151877',
+        name: 'Masco tienda',
+        dir: 'Cll 40 sur #73-30, Bogotá'
+    }, {
+        lat: 4.614868,
+        lng: -74.151271,
+        tel: '3138883986',
+        name: 'World Pets',
+        dir: 'Cll 40# 73A 48 sur, Bogotá'
+    }, {
+        lat: 4.514958,
+        lng: -74.115072,
+        tel: '3108597973',
+        name: 'Granero económico',
+        dir: 'Cra 12 74c 51'
+    }, {
+        lat: 4.515333,
+        lng: -74.115112,
+        tel: '3133000643',
+        name: 'Black Dog',
+        dir: 'Cll 74c sur #12-18'
+    }, {
+        lat: 4.510965,
+        lng: -74.110435,
+        tel: '3123821975',
+        name: 'City Can',
+        dir: 'Kr 8b#77-20 sur'
+    }, {
+        lat: 4.510681,
+        lng: -74.112776,
+        tel: '7680491',
+        name: 'Piscis Veterinaria',
+        dir: 'Cll 78 sur N 9 A 36'
+    }, {
+        lat: 4.511741,
+        lng: -74.114140,
+        tel: '3142877119',
+        name: 'Butkus Centro Veterinario',
+        dir: 'Cll 76B sur #10B'
+    }, {
+        lat: 4.636532,
+        lng: -74.142949,
+        tel: '3222388609',
+        name: 'Mollys Pet Shop',
+        dir: 'Carrera 78 N 7A 79 Local 103'
+    }]
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN-XcXj2hxYMaIq23QLYRpzfUae3xeYWc&callback=initMap"
+        async defer></script>
+
+<% include ../partials/footer.ejs %>

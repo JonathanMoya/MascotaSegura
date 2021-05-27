@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Mascota Segura | DB</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <script src="../js/jquery-3.3.1.slim.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="comment">JSON:</label>
+                <textarea class="form-control" rows="20" id="comment"></textarea>
+                <button onclick="subir()">Subir</button>
+            </div>
+        </div>
+        <div class="col">
+            <div id="qrcode"></div>
+            <button onclick="obtenerQRCaja()">Generar códigos QR Caja</button>
+            <button onclick="obtenerQRLlavero()">Generar códigos QR Llavero</button></div>
+    </div>
+</div>
+
+<script src="/js/mascotas/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>
+
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/qrGenerator.js"></script>
+<script src="/js/qr.js"></script>
+</body>
+</html>
+

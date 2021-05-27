@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no">
+    <title>Registro de compras | Mascota Segura | Protegue a quienes amas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/mdb/css/bootstrap.css" rel="stylesheet">
+    <link href="css/mdb/css/mdb.css" rel="stylesheet">
+    <link href="css/mdb/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+</head>
+<body>
+
+<style>
+    td {
+        color: black;
+    }
+</style>
+
+<div style="margin-top: 2pc;"></div>
+
+<div class="container" style="margin-top: 2pc;">
+    <div class="card-columns">
+        <div id="listCompra">
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/mdb/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/mdb/js/popper.min.js"></script>
+<script type="text/javascript" src="js/mdb/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/mdb/js/mdb.min.js"></script>
+<script src="/js/mascotas/socket.io.js"></script>
+<script>
+    const socket = io.connect('/admin');
+
+    socket.emit('getCompras');
+
+    socket.on('getCompras', function (response) {
+        let htmlList = '';
+
+        console.log(response);
+
+        response.sort(function (a, b) {
+            return parseFloat(a.transactionResponse.operationDate) - parseFloat(b.transactionResponse.operationDate);
+        });
+
+
+        response.forEach(function (element) {
+            console.log(element);
+            console.log(element.transactionResponse.operationDate)
+            if (element.transactionResponse.responseCode === 'APPROVED') {
+                htmlList += '<div class="card border-success mb-3" style="max-width: 20rem;">\n' +
+                    '  <div class="card-header">' + element.paymentMethod + '</div>\n' +
+                    '  <div class="card-body text-primary">\n' +
+                    '<table class="table table-sm">\n' +
+                    '<tbody>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.fullName + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.emailAddress + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.contactPhone + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.additionalValues.TX_VALUE.value + ' ' + element.additionalValues.TX_VALUE.currency + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + new Date(element.transactionResponse.operationDate).toString() + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.country + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.state + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.city + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.street1 + '</td>\n' +
+                    '</tr>\n';
+                if (element.placa) {
+                    htmlList += '<tr>\n' +
+                        '<td>Nombre placa: ' + element.placa.name + '</td>\n' +
+                        '</tr>\n' +
+                        '<tr>\n' +
+                        '<td>Cel placa: ' + element.placa.numero + '</td>\n' +
+                        '</tr>\n';
+                }
+
+                htmlList += '</tbody>\n' +
+                    '</table>' +
+                    '</div>\n' +
+                    '</div>';
+                console.log(element);
+            } else if (element.transactionResponse.responseCode === 'PAYMENT_NETWORK_REJECTED') {
+                htmlList += '<div class="card border-danger mb-3" style="max-width: 20rem;">\n' +
+                    '  <div class="card-header">' + element.paymentMethod + '</div>\n' +
+                    '  <div class="card-body text-primary">\n' +
+                    '<table class="table table-sm">\n' +
+                    '<tbody>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.fullName + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.emailAddress + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.contactPhone + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.additionalValues.TX_VALUE.value + ' ' + element.additionalValues.TX_VALUE.currency + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + new Date(element.transactionResponse.operationDate).toString() + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.country + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.state + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.city + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.street1 + '</td>\n' +
+                    '</tr>\n' +
+                    '</tbody>\n' +
+                    '</table>' +
+                    '  </div>\n' +
+                    '</div>'
+            } else if (element.transactionResponse.responseCode === "PAYMENT_NETWORK_REJECTED") {
+                htmlList += '<div class="card border-primary mb-3" style="max-width: 20rem;">\n' +
+                    '  <div class="card-header">' + element.paymentMethod + '</div>\n' +
+                    '  <div class="card-body text-primary">\n' +
+                    '<table class="table table-sm">\n' +
+                    '<tbody>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.fullName + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.emailAddress + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.contactPhone + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.additionalValues.TX_VALUE.value + ' ' + element.additionalValues.TX_VALUE.currency + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + new Date(element.transactionResponse.operationDate).toString() + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.country + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.state + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.city + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.street1 + '</td>\n' +
+                    '</tr>\n' +
+                    '</tbody>\n' +
+                    '</table>' +
+                    '  </div>\n' +
+                    '</div>'
+            } else if (element.transactionResponse.responseCode === "ANTIFRAUD_REJECTED") {
+                htmlList += '<div class="card border-danger mb-3" style="max-width: 20rem;">\n' +
+                    '  <div class="card-header">' + element.paymentMethod + '</div>\n' +
+                    '  <div class="card-body text-primary">\n' +
+                    '<table class="table table-sm">\n' +
+                    '<tbody>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.fullName + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.emailAddress + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.contactPhone + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.additionalValues.TX_VALUE.value + ' ' + element.additionalValues.TX_VALUE.currency + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + new Date(element.transactionResponse.operationDate).toString() + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.country + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.state + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.city + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.street1 + '</td>\n' +
+                    '</tr>\n' +
+                    '</tbody>\n' +
+                    '</table>' +
+                    '  </div>\n' +
+                    '</div>'
+            } else if (element.transactionResponse.responseCode === "PENDING_TRANSACTION_CONFIRMATION") {
+                htmlList += '<div class="card border-warning mb-3" style="max-width: 20rem;">\n' +
+                    '  <div class="card-header">' + element.paymentMethod + '</div>\n' +
+                    '  <div class="card-body text-primary">\n' +
+                    '<table class="table table-sm">\n' +
+                    '<tbody>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.fullName + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.emailAddress + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.contactPhone + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.additionalValues.TX_VALUE.value + ' ' + element.additionalValues.TX_VALUE.currency + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + new Date(element.transactionResponse.operationDate).toString() + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.country + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.state + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.city + '</td>\n' +
+                    '</tr>\n' +
+                    '<tr>\n' +
+                    '<td>' + element.payer.billingAddress.street1 + '</td>\n' +
+                    '</tr>\n' +
+                    '</tbody>\n' +
+                    '</table>' +
+                    '  </div>\n' +
+                    '</div>'
+            } else {
+                htmlList += '<div class="card border-danger mb-3" style="max-width: 20rem;">\n' +
+                    '  <div class="card-header">' + element.paymentMethod + '</div>\n' +
+                    '  <div class="card-body text-primary">\n' +
+                    '<ul class="list-group list-group-flush">\n' +
+                    '    <li class="list-group-item">' + element + '</li>' +
+                    '  </ul>    ' +
+                    '  </div>\n' +
+                    '</div>'
+            }
+        })
+        $('#listCompra').html(htmlList);
+    })
+</script>
+</html>

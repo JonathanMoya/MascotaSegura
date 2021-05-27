@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%- name %> | Mascota Segura</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        .cedula {
+            margin-top: 3pc;
+            margin-left: 17vw;
+            margin-right: 17vw;
+        }
+
+
+        .cedulaM {
+            margin-left: 5vw;
+            margin-right: 5vw;
+            margin-top: 5vw;
+        }
+
+        .cedula p {
+            margin-bottom: 1.5pc !important;
+        }
+
+        .form-control:disabled, .form-control[readonly] {
+            background-color: white;
+        }
+
+        form {
+            margin-left: 20vw;
+            margin-right: 20vw;
+        }
+
+        .body label {
+            font-size: 20px;
+        }
+
+        body {
+            font-family: 'Thasadith', sans-serif;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <style>
+        @font-face {
+            font-family: 'the_salvador_condensedregular';
+            /*src: url('../css/the_salvador_condensed-webfont.woff2') format('woff2'),*/
+            /*url('../css/the_salvador_condensed-webfont.woff') format('woff');*/
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Product Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+        }
+
+        body {
+            font-family: Product Sans;
+        }
+
+        th {
+            padding: 0 !important;
+        }
+
+        .nav-fill .nav-link:hover {
+            font-size: 2rem !important;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+        .card-link {
+            font-size: 1.7pc;
+        }
+
+        .nav-tabs .nav-link {
+            border: 0;
+            color: #4d9900;
+            background-color: white;
+            border-top-left-radius: 0;
+            font-size: 2vw;
+            border-top-right-radius: 0;
+            height: 5vw;
+            transition: font-size 0.3s;
+            font-weight: bolder;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+    <style>
+        #datosPrincipales.active {
+            /*border: 1px solid #4285F4;*/
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4285F4;
+            border-radius: .25rem;
+            color: white;
+        }
+
+        #datosPrincipales:not(.active) {
+            border: 1px solid #4285F4;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: .25rem;
+            color: #4285F4;
+        }
+
+        #datosMedicos:not(.active) {
+            border: 1px solid #ff4444;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: .25rem;
+            color: #ff4444;
+        }
+
+        #datosMedicos.active {
+            /*border: 1px solid #ff4444;*/
+            background-color: #ff4444;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: .25rem;
+            color: white;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(window).resize(function () {
+            redimension();
+        })
+
+        function redimension() {
+
+        }
+
+        $(document).ready(function () {
+            redimension();
+        });
+    </script>
+    <script src="../js/mascotas/socket.io.js"></script>
+    <script type='text/javascript'>
+        var socket = io.connect('/');
+        alert('Por favor permitenos acceder a tu ubicacion para que el dueño de la mascota sepa en donde está');
+
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    console.log(pos.lat + " " + pos.lng);
+                <%
+                    if (typeof email != 'undefined') { %>
+                        socket.emit('mascota/position', {
+                            "id": '<%- id %>',
+                            "email": '<%- email %>',
+                            "lat": pos.lat,
+                            "lon": pos.lng
+                        });
+                    <%
+                    }
+                %>
+                }, function () {
+                });
+            } else {
+                console.log('No soporta Navegador');
+            }
+        }
+
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvjCgYNHYNO_SBmR-HxYs6zxqQBHQSczU&callback=initMap">
+    </script>
+</head>
+<body>
+
+<div class="cedula">
+</div>
+
+<div class="cedulaM">
+    <% if (typeof foto !== 'undefined') { %>
+    <img src="/mascotas/fotos/<%- foto %>" style=" width: 100%;">
+    <% } %>
+    <div class="col-lg-7" style="margin-top: 1pc;">
+
+        <ul class="nav md-tabs nav-justified" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="datosPrincipales" data-toggle="pill" href="#pills-home1"
+                   role="tab"
+                   aria-controls="pills-home" aria-selected="true">Datos generales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="datosMedicos" data-toggle="pill" href="#pills-profile1"
+                   role="tab"
+                   aria-controls="pills-profile" aria-selected="false">Datos medicos</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home1" role="tabpanel"
+                 aria-labelledby="pills-home-tab">
+                <div class="form-group" style="margin-top: 1pc;">
+                    <label style="margin-bottom: -2pc;">Nombre</label>
+                    <input type="text" class="form-control" value="<%- name %>" disabled>
+                </div>
+                <% if (typeof descripcion !== 'undefined') { %>
+                <div class="form-group">
+                    <label style="margin-top: 1pc; margin-bottom: -1pc;">Descripcion</label>
+                    <textarea class="form-control" rows="3" disabled><%- descripcion %></textarea>
+                </div>
+                <% } %>
+                <% if (typeof direccion !== 'undefined') { %>
+                <div class="form-group" style="margin-top: 1pc;">
+                    <label style="margin-bottom: -2pc;">Direccion</label>
+                    <input type="text" class="form-control" value="<%- direccion %>" disabled>
+                </div>
+                <% } %>
+                <% if (typeof raza === 'string') { %>
+                <div class="form-group" style="margin-top: 1pc;">
+                    <label style="margin-bottom: -2pc;">Raza</label>
+                    <input type="text" class="form-control" value="<%- raza %>" disabled>
+                </div>
+                <% } %>
+                <div class="form-group" style="margin-top: 1pc;">
+                    <% if (typeof telefono !== 'undefined') { %>
+                    <label style="margin-bottom: -2pc;">Telefono</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <a href="tel:+<%- telefono %>">
+                                <button class="btn btn-outline-success" type="button">Llamar</button>
+                            </a>
+                        </div>
+                        <input type="text" class="form-control" value="+<%- telefono %>" disabled>
+                    </div>
+                    <% } %>
+                    <div class="form-group" style="margin-top: 1pc;">
+                        <% if (typeof celular1 !== 'undefined') { %>
+                        <label style="margin-bottom: -2pc;">Celular</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <a href="tel:+<%- celular1 %>">
+                                    <button class="btn btn-outline-success" type="button">Llamar</button>
+                                </a>
+                            </div>
+                            <input type="text" class="form-control" value="+<%- celular1 %>" disabled>
+                        </div>
+                        <% } %>
+                        <div class="form-group" style="margin-top: 1pc;">
+                            <% if (typeof celular2 !== 'undefined') { %>
+                            <label style="margin-bottom: -2pc;">Celular 2</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <a href="tel:+<%- celular2 %>">
+                                        <button class="btn btn-outline-success" type="button">Llamar</button>
+                                    </a>
+                                </div>
+                                <input type="text" class="form-control" value="+<%- celular2 %>" disabled>
+                            </div>
+                            <% } %>
+                            <% if (typeof whatsapp !== 'undefined') { %>
+                            <label style="margin-bottom: -2pc;">Whatsapp</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <a href="https://wa.me/<%- whatsapp %>?text=He%20encontrado%20a%20tu%20mascota!">
+                                        <button class="btn btn-outline-success" type="button">Enviar mensaje</button>
+                                    </a>
+                                </div>
+                                <input type="text" class="form-control" value="+<%- whatsapp %>" disabled>
+                            </div>
+                            <% } %>
+                            <% if (recompensa === '1') { %>
+                            <p style="text-align: center;">Si nuestra amada mascota se perdio, te pedimos
+                                comunicarte lo
+                                mas
+                                pronto con nosotros,
+                                además de nuestra inmensa gratitud, tendras una</p>
+                            <h1 style="text-align: center; color: red;">
+                                Recompensa!</h1></p>
+                            <% }else { %>
+                            <p style="text-align: center;">Si nuestra amada mascota se perdio, te pedimos
+                                comunicarte lo mas
+                                pronto con nosotros, tendras
+                                nuestra eterna gratitud</p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile1" role="tabpanel"
+                 aria-labelledby="pills-profile-tab">
+
+                <ul class="nav md-tabs nav-justified mt-4">
+                    <li class="nav-item">
+                        <a href="#veterinarioTab">
+                            <img src="../img/mascotas/veterinario.png" style="width: 100%;">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#cirugiasTab">
+                            <img src="../img/mascotas/cirugias.png" style="width: 100%;">
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav md-tabs nav-justified">
+                    <li class="nav-item">
+                        <a href="#vacunasTab">
+                            <img src="../img/mascotas/vacunas.png" style="width: 100%;">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#medicamentosTab1">
+                            <img src="../img/mascotas/medicamento.png" style="width: 100%;">
+                        </a>
+                    </li>
+                </ul>
+
+                <div id="veterinarioTab" class="mt-4">
+                    <% if (typeof veterinarioCel != 'undefined' && typeof veterinarioNombre != 'undefined')
+                    { %>
+                    <img src="../img/mascotas/veterinarioLabel.png" width="100%">
+                    <% } %>
+
+
+                    <% if (typeof veterinarioNombre != 'undefined') { %>
+                    <div class="form-group" style="margin-top: 1pc;">
+                        <label style="margin-bottom: -2pc;">Nombre</label>
+                        <input type="text" class="form-control" value="<%- veterinarioNombre %>" disabled>
+                    </div>
+                    <% } %>
+                    <% if (typeof veterinarioCel != 'undefined') { %>
+                    <div class="form-group" style="margin-top: 1pc;">
+                        <label style="margin-bottom: -2pc;">Celular</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <a href="tel:+<%- veterinarioCel %>">
+                                    <button class="btn btn-outline-success" type="button">Llamar</button>
+                                </a>
+                            </div>
+                            <input type="text" class="form-control" value="+<%- veterinarioCel %>" disabled>
+                        </div>
+                    </div>
+                    <% } %>
+                    <% if (typeof direccionVeterinaria != 'undefined') { %>
+                    <div class="form-group" style="margin-top: 1pc;">
+                        <label style="margin-bottom: -2pc;">Direccion</label>
+                        <input type="text" class="form-control" value="<%- direccionVeterinaria %>" disabled>
+                    </div>
+                    <% } %>
+                    <% if (typeof nombreVeterinaria != 'undefined') { %>
+                    <div class="form-group" style="margin-top: 1pc;">
+                        <label style="margin-bottom: -2pc;">Nombre veterinaria</label>
+                        <input type="text" class="form-control" value="<%- nombreVeterinaria %>" disabled>
+                    </div>
+                    <% } %>
+                    <% if (typeof veterinariaTel != 'undefined') { %>
+                    <div class="form-group" style="margin-top: 1pc;">
+                        <label style="margin-bottom: -2pc;">Telefono</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <a href="tel:+<%- veterinariaTel %>">
+                                    <button class="btn btn-outline-success" type="button">Llamar</button>
+                                </a>
+                            </div>
+                            <input type="text" class="form-control" value="+<%- veterinariaTel %>" disabled>
+                        </div>
+                    </div>
+                    <% } %>
+                    <% if (typeof observacionesVeterinaria != 'undefined') { %>
+                    <div class="form-group">
+                        <label style="margin-top: 1pc; margin-bottom: -1pc;">Observaciones</label>
+                        <textarea class="form-control" rows="3" disabled><%- observacionesVeterinaria %>
+                        </textarea>
+                    </div>
+                    <% } %>
+                </div>
+                <div id="cirugiasTab">
+                    <img src="../img/mascotas/medicosLabel.png" width="100%">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Tipo de procedimiento</th>
+                            <th scope="col">Veterinario</th>
+                        </tr>
+                        </thead>
+                        <tbody class="cirugiasTable">
+                        </tbody>
+                    </table>
+                    <% if (typeof recomendaciones !== 'undefined') { %>
+                    <div class="form-group">
+                        <label style="margin-top: 1pc; margin-bottom: -1pc;">Datos medicos</label>
+                        <textarea class="form-control" rows="3" disabled><%- recomendaciones %></textarea>
+                    </div>
+                    <% } %>
+                </div>
+                <div id="vacunasTab">
+                    <img src="../img/mascotas/vacunasLabel.png" width="100%">
+                    <h3>Vacunas</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Vacuna utilizada</th>
+                        </tr>
+                        </thead>
+                        <tbody class="vacunasTable">
+                        </tbody>
+                    </table>
+                    <h3>Desparasitaci&oacuten</h3>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Desparasitaci&oacuten</th>
+                            <th scope="col">Biologicos</th>
+                        </tr>
+                        </thead>
+                        <tbody class="parasitosTable">
+                        </tbody>
+                    </table>
+                </div>
+                <div id="medicamentosTab1">
+                    <img src="../img/mascotas/medicamentosLabel.png" width="100%">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Dosis</th>
+                        </tr>
+                        </thead>
+                        <tbody class="medicinaTable">
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var vacunas = [];
+    var vacunas2 = [];
+    var cirugias = [];
+    var medicamentos = [];
+</script>
+
+<% if (typeof vacunas != 'undefined') {
+if (typeof vacunas === 'object') {
+for(var i=0; i< vacunas.length; i++) {%>
+<script type="text/javascript">
+    try {
+        vacunas.push(JSON.parse('<%- vacunas[i] %>'));
+    } catch (e) {
+        vacunas.push(JSON.parse('<%- vacunas[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% } %>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        vacunas.push(JSON.parse('<%- vacunas %>'));
+    } catch (e) {
+        console.log(e);
+        vacunas.push(JSON.parse('<%- vacunas %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+<% if (typeof cirugias != 'undefined') {
+if (typeof cirugias === 'object') {
+for(var i=0; i< cirugias.length; i++) {%>
+<script type="text/javascript">
+    try {
+        cirugias.push(JSON.parse('<%- cirugias[i] %>'));
+    } catch (e) {
+        cirugias.push(JSON.parse('<%- cirugias[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% } %>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        cirugias.push(JSON.parse('<%- cirugias %>'));
+    } catch (e) {
+        console.log(e);
+        cirugias.push(JSON.parse('<%- cirugias %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+<% if (typeof medicamentos != 'undefined') {
+if (typeof medicamentos === 'object') {
+for(var i=0; i< medicamentos.length; i++) {%>
+<script type="text/javascript">
+    try {
+        medicamentos.push(JSON.parse('<%- medicamentos[i] %>'));
+    } catch (e) {
+        medicamentos.push(JSON.parse('<%- medicamentos[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% } %>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        medicamentos.push(JSON.parse('<%- medicamentos %>'));
+    } catch (e) {
+        console.log(e);
+        medicamentos.push(JSON.parse('<%- medicamentos %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+
+<% if (typeof parasitos != 'undefined') {
+if (typeof parasitos === 'object') {
+for(var i=0; i< parasitos.length; i++) {%>
+<script type="text/javascript">
+    try {
+        vacunas2.push(JSON.parse('<%- parasitos[i] %>'));
+    } catch (e) {
+        vacunas2.push(JSON.parse('<%- parasitos[i] %>' + '"}'));
+        console.log(e);
+    }
+</script>
+<% }%>
+<% }else{ %>
+<script type="text/javascript">
+    try {
+        vacunas2.push(JSON.parse('<%- parasitos %>'));
+    } catch (e) {
+        console.log(e);
+        vacunas2.push(JSON.parse('<%- parasitos %>' + '"}'));
+    }
+</script>
+<% }}%>
+
+<script type="text/javascript">
+    var html = '';
+    var html2 = '';
+    var html3 = '';
+    var html4 = '';
+    vacunas.forEach(function (element) {
+        html += '<tr>' +
+            '<td>' + element.fecha + '</td>' +
+            '<td>' + element.vacuna.split('~').join(' ') + '</td></tr>';
+    });
+    vacunas2.forEach(function (element) {
+        console.log(element);
+        html2 += ' <tr>' +
+            ' <td>' + element.fecha + '</td>' +
+            ' <td>' + element.desparacitacion.split('~').join(' ') + '</td>' +
+            '<td>' + element.biologico.split('~').join(' ') + '</td></tr>';
+    });
+    cirugias.forEach(function (element) {
+        html3 += ' <tr>' +
+            ' <td>' + element.fecha + '</td>' +
+            ' <td>' + element.tipo.split('~').join(' ') + '</td>' +
+            '<td>' + element.veterinario.split('~').join(' ') + '</td></tr>';
+    });
+    medicamentos.forEach(function (element) {
+        html4 += ' <tr>' +
+            ' <td>' + element.fecha + '</td>' +
+            ' <td>' + element.nombre.split('~').join(' ') + '</td>' +
+            '<td>' + element.dosis.split('~').join(' ') + '</td></tr>';
+    });
+    console.log(vacunas2);
+    $('.vacunasTable').html(html);
+    console.log(html2);
+    $('.parasitosTable').html(html2);
+    $('.cirugiasTable').html(html3);
+    $('.medicinaTable').html(html4);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<!--<script src="../js/navbar.js"></script>-->
+<!--<script src="../js/mascotas/socket.io.js"></script>-->
+<!--<script src="../js/mascotas/adminPet.js"></script>-->
+</body>
+</html>

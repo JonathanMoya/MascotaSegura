@@ -1,0 +1,142 @@
+<% include ../partials/head.ejs %>
+<% include ../partials/navbar.ejs %>
+
+<div id="backgroundImage"></div>
+
+<div id="imageHome">
+    <img src="img/inicio.png">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm cardImage">
+            <a href="https://mascotasegura.co/instrucciones">
+                <img src="img/HomeQueEs.png">
+            </a>
+        </div>
+        <div class="col-sm cardImage">
+            <a href="https://mascotasegura.co/instrucciones">
+                <img src="img/HomeComo.png">
+            </a>
+        </div>
+        <div class="col-sm cardImage">
+            <a href="https://mascotasegura.co/aliados">
+                <img src="img/HomeDonde.png">
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="container">
+                <div class="card" id="cardProveedor">
+                    <div class="container">
+                        <div class="card-body">
+                            <div class="container">
+                                <h4 class="card-title text-center mt-5">¿Quieres ser distribuidor de Mascota
+                                    Segura?</h4>
+                                <a href="https://mascotasegura.co/contactanos" type="button" class="btn btn-block">Contactanos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="cardVideos">
+                    <img src="img/videosHome.png" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm mt-4">
+            <div class="card" id="aliados">
+                <div class="container">
+                    <div class="card-body" style="height:36pc; overflow:auto;">
+                        <div class="container">
+                            <h1 class="card-title text-center">Nuestros aliados</h1>
+                            <div id="veterinarias"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm">
+            <div class="container">
+                <img src="img/Envio.png" width="60%" style="display: block;margin-left: auto;margin-right: auto;">
+                <p style="color: rgb(24, 57, 43)" class="text-center mt-3 font-weight-bold">Envio gratis en Colombia</p>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="container">
+                <img src="img/Llamar.png" width="60%" style="display: block;margin-left: auto;margin-right: auto;">
+                <p style="color: rgb(24, 57, 43)" class="text-center mt-3 font-weight-bold">Soporte 24/7</p>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="container">
+                <img src="img/Tarjeta.png" width="60%" style="display: block;margin-left: auto;margin-right: auto;">
+                <p style="color: rgb(24, 57, 43)" class="text-center mt-3 font-weight-bold">Diferentes medios de
+                    pago</p>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="container">
+                <img src="img/Seguro.png" width="60%" style="display: block;margin-left: auto;margin-right: auto;">
+                <p style="color: rgb(24, 57, 43)" class="text-center mt-3 font-weight-bold">Compra protegida</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
+
+<script>
+
+
+    var veterinarias = [{
+        name: 'Pepito',
+        tel: '8025366',
+        dir: 'Calle 74 N 80',
+    }, {
+        name: 'Pepito 2',
+        tel: '8025366',
+        dir: 'Calle 74 N 80',
+    }, {
+        name: 'Pepito 3',
+        tel: '8025366',
+        dir: 'Calle 74 N 80',
+    }, {
+        name: 'Pepito 4',
+        tel: '8025366',
+        dir: 'Calle 74 N 80',
+    }, {
+        name: 'Pepito 5',
+        tel: '8025366',
+        dir: 'Calle 74 N 80',
+    }];
+
+    setVeterinarias();
+
+
+    function setVeterinarias() {
+        htmlVet = ''
+        veterinarias.forEach(function (el) {
+            htmlVet += '<div class="card mt-3">' +
+                '<div class="card-body">' +
+                '<h5 class="card-title">' + el.name + '</h5>' +
+                '<p class="card-text"><a class="btn btn-primary btn-sm" href="tel:' + el.tel + '">' + el.tel + '</a></p>' +
+                '<p class="card-text">' + el.dir + '</p>' +
+                '</div>' +
+                '</div>'
+        });
+        console.log(htmlVet);
+        $('#veterinarias').html(htmlVet);
+    }
+
+</script>
